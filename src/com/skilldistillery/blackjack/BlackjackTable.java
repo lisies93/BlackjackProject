@@ -85,6 +85,7 @@ public class BlackjackTable {
 			result = false;
 		}
 		if (dealerHand.isBlackjack()) {
+			System.out.println();
 			System.out.println("Dealer has blackjack");
 			showDealerHand(dealerHand);
 			System.out.println("You Lost!");

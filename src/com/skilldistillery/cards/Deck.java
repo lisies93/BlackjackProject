@@ -17,6 +17,7 @@ public class Deck {
 		for(Rank r : Rank.values()) {
 			cards.add(new Card(s, r));
 		}
+		shuffle();
 	}
 	
 	
@@ -28,7 +29,6 @@ public class Deck {
 	}
 	
 	public Card dealCard() {
-		shuffle();
 		return cards.remove(0);
 		
 	}

@@ -33,46 +33,47 @@ public class BlackjackTable {
 			}
 		}
 		showPlayerHand(playerHand);
-		
-		boolean keepGoing = checkPoints(playerHand, dealerHand);
-		while (keepGoing) {
 
+		boolean keepGoing = checkPoints(playerHand, dealerHand);
+
+		while (keepGoing) {
 			boolean go = hitOrStand();
-			while (go) {
+			if (go) {
 				Card cp = d.dealCard();
 				playerHand.addCard(cp);
 				showPlayerHand(playerHand);
 				keepGoing = checkPoints(playerHand, dealerHand);
-				if(keepGoing) {
-					if(hitOrStand()) {
-						continue;
-						
-					}
+				if (keepGoing) {
+
+					continue;
 				} else {
 					break;
 				}
-			}
+			} else {
 
-			if (go == false) {
 				showDealerHand(dealerHand);
-				
+
 				while (dealerHand.getHandValue() <= 16) {
 					Card cd = d.dealCard();
 					dealerHand.addCard(cd);
+					System.out.println("Hits..");
+					System.out.println();
 					showDealerHand(dealerHand);
 					keepGoing = checkPoints(playerHand, dealerHand);
 				}
-				if ((dealerHand.getHandValue() > playerHand.getHandValue()) && (dealerHand.getHandValue() <=21)) {
+				if ((dealerHand.getHandValue() > playerHand.getHandValue()) && (dealerHand.getHandValue() <= 21)) {
 					System.out.println("Dealer wins");
+					break;
 				} else if (dealerHand.getHandValue() == playerHand.getHandValue()) {
 					System.out.println("Its a push!");
+					break;
 				} else {
 					System.out.println("You won!");
+					break;
 
 				}
 			}
 		}
-
 	}
 
 	private boolean checkPoints(BlackjackHand playerHand, BlackjackHand dealerHand) {
@@ -85,6 +86,7 @@ public class BlackjackTable {
 		}
 		if (dealerHand.isBlackjack()) {
 			System.out.println("Dealer has blackjack");
+			showDealerHand(dealerHand);
 			System.out.println("You Lost!");
 
 			result = false;
@@ -96,7 +98,6 @@ public class BlackjackTable {
 		}
 		if (dealerHand.isBust()) {
 			System.out.println("Dealer has bust");
-			System.out.println("You won!");
 			result = false;
 		}
 		return result;
@@ -107,7 +108,7 @@ public class BlackjackTable {
 		System.out.println("Dealer hand: ");
 		dealerHand.showHand();
 		System.out.println("Dealer value: " + dealerHand.getHandValue());
-		System.out.println();		
+		System.out.println();
 	}
 
 	private void showPlayerHand(BlackjackHand playerHand) {

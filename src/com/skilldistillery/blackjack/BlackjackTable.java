@@ -26,10 +26,8 @@ public class BlackjackTable {
 			playerHand.addCard(cp);
 			dealerHand.addCard(cd);
 			if (i == 0) {
-				System.out.println("Dealer hand: ");
-				dealerHand.showHand();
-				System.out.println("Dealer value: " + dealerHand.getHandValue());
-				System.out.println();
+				showDealerHand(dealerHand);
+
 			}
 		}
 		showPlayerHand(playerHand);
@@ -76,6 +74,7 @@ public class BlackjackTable {
 		}
 	}
 
+	// method to check point each time a player hits
 	private boolean checkPoints(BlackjackHand playerHand, BlackjackHand dealerHand) {
 		boolean result = true;
 		if (playerHand.isBlackjack()) {
@@ -98,7 +97,7 @@ public class BlackjackTable {
 			result = false;
 		}
 		if (dealerHand.isBust()) {
-			System.out.println("Dealer has bust");
+			System.out.println("Dealer bust");
 			result = false;
 		}
 		return result;
@@ -106,9 +105,9 @@ public class BlackjackTable {
 	}
 
 	private void showDealerHand(BlackjackHand dealerHand) {
-		System.out.println("Dealer hand: ");
+		System.out.println("Dealer's hand: ");
 		dealerHand.showHand();
-		System.out.println("Dealer value: " + dealerHand.getHandValue());
+		System.out.println("Dealer's value: " + dealerHand.getHandValue());
 		System.out.println();
 	}
 
@@ -122,14 +121,25 @@ public class BlackjackTable {
 
 		Scanner kb = new Scanner(System.in);
 
+		boolean go = true;
+		boolean hitOrstand = true;
+		while(go) {
 		System.out.println("Hit or Stand?");
 		String option = kb.nextLine();
-
-		if (option.equalsIgnoreCase("hit")) {
-			return true;
-		}
-		return false;
-
+        	
+        	if (option.equalsIgnoreCase("hit")) {
+        		go = false;
+        		hitOrstand = true;
+        		;
+        	} else if (option.equalsIgnoreCase("stand")){
+        		go = false;
+        		hitOrstand = false;
+        	} else {
+        		System.out.println("Invalid option please try again");
+        		go = true;
+        	}
+        }
+		return hitOrstand;
 	}
 
 }
